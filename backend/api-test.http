@@ -1,0 +1,21 @@
+@BASE_URL=http://localhost:3000/api/v1
+
+### create user
+POST {{BASE_URL}}/users/create
+Content-Type: application/json
+
+{
+    "username": "admin11",
+    "password": "Aa112233",
+    "email": "test2@gmail.com",
+    "role_id": "68d292130cd7093b3b52599e"
+}
+
+### login
+POST {{BASE_URL}}/users/create
+Content-Type: application/json
+
+{
+    "username": "admin",
+    "password": "Aa112233"
+}
