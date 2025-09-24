@@ -54,3 +54,20 @@ DELETE  {{BASE_URL}}/kpis/68d386fe59b2fb066a443c5d
 Content-Type: application/json
 # Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDM1ZWRhNzdlMWQ1MTcyMTczZjc3YSIsImlhdCI6MTc1ODY5MzM1NiwiZXhwIjoxNzU4NzAwNTU2fQ.GXBIFP9rBVLCELCMFNvJ1G6T3HmuIQ3Bbs86lumkXi0
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDI5NzA3NzdmYmVjZjhlZjY1NDg2NCIsImlhdCI6MTc1ODY5NDA5MiwiZXhwIjoxNzU4NzAxMjkyfQ.PJQmXRLzX1qddPnxfqem9r5urkl0xXp8fYqzRbHt8IM
+
+
+###  kpi progress list
+GET  {{BASE_URL}}/kpis/68d38ae656379db205277fca/updates
+Content-Type: application/json
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDM1ZWRhNzdlMWQ1MTcyMTczZjc3YSIsImlhdCI6MTc1ODY5MzM1NiwiZXhwIjoxNzU4NzAwNTU2fQ.GXBIFP9rBVLCELCMFNvJ1G6T3HmuIQ3Bbs86lumkXi0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDM1ZWRhNzdlMWQ1MTcyMTczZjc3YSIsImlhdCI6MTc1ODcwMDkxNywiZXhwIjoxNzU4NzA4MTE3fQ.87NxyBRgyEXOZvbXKKj3RcKCYFtDBSVjRTVFWlVUWHc
+
+###  update kpi progress 
+POST {{BASE_URL}}/kpis/68d38b6956379db205277fdf/updates
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDM1ZWRhNzdlMWQ1MTcyMTczZjc3YSIsImlhdCI6MTc1ODcwMDkxNywiZXhwIjoxNzU4NzA4MTE3fQ.87NxyBRgyEXOZvbXKKj3RcKCYFtDBSVjRTVFWlVUWHc
+
+{
+  "updated_value": 50.0,
+  "comment": "Reached 50% by Q2"
+}

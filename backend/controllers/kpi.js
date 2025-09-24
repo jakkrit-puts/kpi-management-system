@@ -1,8 +1,9 @@
 import TryCatch from "../middlewares/try-catch.js"
 import sanitize from "mongo-sanitize";
-import { createKpiSchema, updateKpiSchema } from "../validations/kpiValidation.js";
+import { createKpiSchema, kpiUpdateProgressSchema, updateKpiSchema } from "../validations/kpiValidation.js";
 import { handleZodValidation } from "../utils/handleValidation.js";
 import { Kpi } from "../models/kpi.js"
+import { KpiUpdate } from "../models/kpi_updates.js"
 import { checkFormatID } from "../utils/format.js";
 
 
@@ -121,4 +122,55 @@ export const removeKPI = TryCatch(async (req, res) => {
     }
 
     res.status(200).json({ message: "Kpi deleted successfully." });
+})
+
+// for user
+export const listUpdateKpi = TryCatch(async (req, res) => {
+    const { id } = req.params
+
+    if (!checkFormatID(id, res)) return;
+
+    const kpiUpdateList = await KpiUpdate.find({ kpi_id: id }).populate("updated_by", "_id username")
+
+    res.status(200).json({
+        kpis_progress: kpiUpdateList
+    })
+})
+
+export const addUpdateKpi = TryCatch(async (req, res) => {
+
+    const { id } = req.params
+    const userId = req.user._id;
+
+    if (!checkFormatID(id, res)) return;
+
+    const sanitizedBody = sanitize(req.body);
+
+    const validation = kpiUpdateProgressSchema.safeParse(sanitizedBody);
+
+    const errorResponse = handleZodValidation(validation, res);
+    if (errorResponse) return;
+
+    const { updated_value, comment } = validation.data;
+
+    const kpi = await Kpi.findById(id);
+    if (!kpi) return res.status(404).json({ message: "Kpi Notfound" });
+
+    console.log({userId});
+    const kpiOwner = await Kpi.findOne({ assigned_user: userId, _id: id });
+    console.log({kpiOwner});
+    
+    if (!kpiOwner) return res.status(403).json({ message: "Forbidden: Not KPI owner" });
+
+    await KpiUpdate.create({
+        kpi_id: id,
+        updated_value: updated_value,
+        comment: comment,
+        updated_by: userId
+    })
+
+    res.status(201).json({
+        message: "kpi progress update.",
+    })
+
 })

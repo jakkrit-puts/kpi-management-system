@@ -22,6 +22,13 @@ const KpiUpdateSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     }
+}, {
+    toJSON: {
+        transform: (doc, ret) => {
+            ret.updated_value = parseFloat(ret.updated_value.toString());
+            return ret;
+        }
+    }
 });
 
 export const KpiUpdate = mongoose.model("KpiUpdate", KpiUpdateSchema);

@@ -27,3 +27,9 @@ export const updateKpiSchema = z.object({
     end_date: z.string().optional()
 })
 
+export const kpiUpdateProgressSchema = z.object({
+    updated_value: z.number(),
+    comment: z.string().max(100, "maximum 100 characters").optional()
+})
+
+
