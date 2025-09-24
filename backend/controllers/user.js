@@ -51,7 +51,6 @@ export const create = TryCatch(async (req, res) => {
     })
 })
 
-
 export const listUser = TryCatch(async (req, res) => {
     const users = await User.find().select("-password_hash").populate("role_id");
 
@@ -97,8 +96,6 @@ export const updatePassword = TryCatch(async (req, res) => {
 
     res.status(200).json({ message: "password updated successfully." });
 });
-
-
 
 export const removeUser = TryCatch(async (req, res) => {
     const { id } = req.params

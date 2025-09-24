@@ -4,9 +4,11 @@ import cookieParser from "cookie-parser";
 import cors from 'cors'
 // sub routes
 import connectDB from './configs/db.js'
+import { seedRoles } from './models/seeds/seedRoles.js';
+
 import userRoutes from './routes/user.js'
 import authRoutes from './routes/auth.js'
-import { seedRoles } from './models/seeds/seedRoles.js';
+import kpiRoutes from './routes/kpi.js'
 
 dotenv.config();
 
@@ -27,6 +29,8 @@ app.use(cors())
 // group v1
 app.use("/api/v1/auth", authRoutes)
 app.use("/api/v1/users", userRoutes)
+app.use("/api/v1/kpis", kpiRoutes)
+
 
 const PORT = process.env.PORT || 3000
 

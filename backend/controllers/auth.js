@@ -20,10 +20,16 @@ export const login = TryCatch(async (req, res) => {
 
     const user = await User.findOne({ username }).populate("role_id");;
 
+     if (!user) {
+        return res.status(401).json({
+            message: "Invalid username or password"
+        })
+    }
+
     const comparePassword = await bcrypt.compare(password, user.password_hash);
 
     if (!comparePassword) {
-        return res.status(400).json({
+        return res.status(401).json({
             message: "Invalid username or password"
         })
     }

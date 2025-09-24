@@ -4,13 +4,13 @@
 ### create user 
 POST {{BASE_URL}}/users
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDI5NzA3NzdmYmVjZjhlZjY1NDg2NCIsImlhdCI6MTc1ODY4MjAzNSwiZXhwIjoxNzU4Njg5MjM1fQ.ATUeVdzyKNiBa41j1hWlkflsWswY6_IFNzmX2b1JMKw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDI5NzA3NzdmYmVjZjhlZjY1NDg2NCIsImlhdCI6MTc1ODY5NDA5MiwiZXhwIjoxNzU4NzAxMjkyfQ.PJQmXRLzX1qddPnxfqem9r5urkl0xXp8fYqzRbHt8IM
 # Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDM1ZWRhNzdlMWQ1MTcyMTczZjc3YSIsImlhdCI6MTc1ODY4Mjg2MywiZXhwIjoxNzU4NjkwMDYzfQ.9v7SqCWks6-AomR1O1O-zBk4PW8csOh5Qa5QzNPtA3s
 
 {
-    "username": "user111",
+    "username": "user222",
     "password": "Aa112233",
-    "email": "user@gmail.com",
+    "email": "user222@gmail.com",
     "role_id": "68d292130cd7093b3b5259a4"
 }
 

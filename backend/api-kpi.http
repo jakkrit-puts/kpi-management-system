@@ -1,0 +1,56 @@
+@BASE_URL=http://localhost:3000/api/v1
+
+# admin only
+### create kpi 
+POST {{BASE_URL}}/kpis
+Content-Type: application/json
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDM1ZWRhNzdlMWQ1MTcyMTczZjc3YSIsImlhdCI6MTc1ODY5MzM1NiwiZXhwIjoxNzU4NzAwNTU2fQ.GXBIFP9rBVLCELCMFNvJ1G6T3HmuIQ3Bbs86lumkXi0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDI5NzA3NzdmYmVjZjhlZjY1NDg2NCIsImlhdCI6MTc1ODY5NDA5MiwiZXhwIjoxNzU4NzAxMjkyfQ.PJQmXRLzX1qddPnxfqem9r5urkl0xXp8fYqzRbHt8IM
+
+{
+  "title": "Increase  7878",
+  "description": "ddfddf",
+  "target_value": 11,
+  "actual_value": 0,
+  "status": "On Track",
+  "assigned_user": "68d38b5056379db205277fdb",
+  "start_date": "2024-02-23T15:45:00.588Z",
+  "end_date":  "2024-02-23T15:45:00.588Z"
+}
+
+### list kpi
+GET {{BASE_URL}}/kpis
+Content-Type: application/json
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDM1ZWRhNzdlMWQ1MTcyMTczZjc3YSIsImlhdCI6MTc1ODY5MzM1NiwiZXhwIjoxNzU4NzAwNTU2fQ.GXBIFP9rBVLCELCMFNvJ1G6T3HmuIQ3Bbs86lumkXi0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDI5NzA3NzdmYmVjZjhlZjY1NDg2NCIsImlhdCI6MTc1ODY5NDA5MiwiZXhwIjoxNzU4NzAxMjkyfQ.PJQmXRLzX1qddPnxfqem9r5urkl0xXp8fYqzRbHt8IM
+
+
+### detail kpi
+GET {{BASE_URL}}/kpis/68d3871659b2fb066a443c61
+Content-Type: application/json
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDM1ZWRhNzdlMWQ1MTcyMTczZjc3YSIsImlhdCI6MTc1ODY5MzM1NiwiZXhwIjoxNzU4NzAwNTU2fQ.GXBIFP9rBVLCELCMFNvJ1G6T3HmuIQ3Bbs86lumkXi0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDI5NzA3NzdmYmVjZjhlZjY1NDg2NCIsImlhdCI6MTc1ODY5NDA5MiwiZXhwIjoxNzU4NzAxMjkyfQ.PJQmXRLzX1qddPnxfqem9r5urkl0xXp8fYqzRbHt8IM
+
+### update
+PUT {{BASE_URL}}/kpis/68d3871659b2fb066a443c61
+Content-Type: application/json
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDM1ZWRhNzdlMWQ1MTcyMTczZjc3YSIsImlhdCI6MTc1ODY5MzM1NiwiZXhwIjoxNzU4NzAwNTU2fQ.GXBIFP9rBVLCELCMFNvJ1G6T3HmuIQ3Bbs86lumkXi0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDI5NzA3NzdmYmVjZjhlZjY1NDg2NCIsImlhdCI6MTc1ODY5NDA5MiwiZXhwIjoxNzU4NzAxMjkyfQ.PJQmXRLzX1qddPnxfqem9r5urkl0xXp8fYqzRbHt8IM
+
+{
+  "title": "Increase  7878",
+  "description": "ddfddf",
+  "target_value": 11,
+  "actual_value": 0,
+  "status": "On Track",
+  "assigned_user": "68d38b5056379db205277fdb",
+  "start_date": "2024-02-23T15:45:00.588Z",
+  "end_date":  "2024-02-23T15:45:00.588Z"
+}
+
+
+### delete kpi
+DELETE  {{BASE_URL}}/kpis/68d386fe59b2fb066a443c5d
+Content-Type: application/json
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDM1ZWRhNzdlMWQ1MTcyMTczZjc3YSIsImlhdCI6MTc1ODY5MzM1NiwiZXhwIjoxNzU4NzAwNTU2fQ.GXBIFP9rBVLCELCMFNvJ1G6T3HmuIQ3Bbs86lumkXi0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDI5NzA3NzdmYmVjZjhlZjY1NDg2NCIsImlhdCI6MTc1ODY5NDA5MiwiZXhwIjoxNzU4NzAxMjkyfQ.PJQmXRLzX1qddPnxfqem9r5urkl0xXp8fYqzRbHt8IM

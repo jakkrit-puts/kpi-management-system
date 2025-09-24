@@ -32,7 +32,16 @@ const KpiSchema = new mongoose.Schema({
         type: Date,
         required: true,
     }
-}, { timestamps: true });
+}, {
+    timestamps: true, 
+    toJSON: {
+        transform: (doc, ret) => {
+            ret.target_value = parseFloat(ret.target_value.toString());
+            ret.actual_value = parseFloat(ret.actual_value.toString());
+            return ret;
+        }
+    }
+});
 
 export const Kpi = mongoose.model("Kpi", KpiSchema);
 
