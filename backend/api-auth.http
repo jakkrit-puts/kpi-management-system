@@ -1,0 +1,14 @@
+@BASE_URL=http://localhost:3000/api/v1
+
+### login
+POST {{BASE_URL}}/auth/login
+Content-Type: application/json
+
+{
+    "username": "admin1",
+    "password": "Aa112244"
+}
+
+### profile
+GET {{BASE_URL}}/auth/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDM1ZWRhNzdlMWQ1MTcyMTczZjc3YSIsImlhdCI6MTc1ODY4Mjg2MywiZXhwIjoxNzU4NjkwMDYzfQ.9v7SqCWks6-AomR1O1O-zBk4PW8csOh5Qa5QzNPtA3s

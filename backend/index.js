@@ -5,6 +5,7 @@ import cors from 'cors'
 // sub routes
 import connectDB from './configs/db.js'
 import userRoutes from './routes/user.js'
+import authRoutes from './routes/auth.js'
 import { seedRoles } from './models/seeds/seedRoles.js';
 
 dotenv.config();
@@ -24,6 +25,7 @@ app.use(cookieParser())
 app.use(cors())
 
 // group v1
+app.use("/api/v1/auth", authRoutes)
 app.use("/api/v1/users", userRoutes)
 
 const PORT = process.env.PORT || 3000

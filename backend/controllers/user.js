@@ -2,9 +2,9 @@ import TryCatch from "../middlewares/try-catch.js";
 import sanitize from "mongo-sanitize";
 import bcrypt from "bcrypt"
 import { User } from "../models/User.js"
-import { createUserSchema, loginUserSchema } from "../validations/userValidation.js";
+import { createUserSchema } from "../validations/userValidation.js";
 import { handleZodValidation } from "../utils/handleValidation.js";
-import { generateToken } from "../utils/jwtToken.js";
+import { checkFormatID } from "../utils/format.js";
 
 export const create = TryCatch(async (req, res) => {
 
@@ -51,49 +51,65 @@ export const create = TryCatch(async (req, res) => {
     })
 })
 
-export const login = TryCatch(async (req, res) => {
 
-    const sanitizedBody = sanitize(req.body);
-
-    const validation = loginUserSchema.safeParse(sanitizedBody);
-
-    const errorResponse = handleZodValidation(validation, res);
-    if (errorResponse) return;
-
-    const { username, password } = validation.data;
-
-    const user = await User.findOne({ username }).populate("role_id");;
-
-    const comparePassword = await bcrypt.compare(password, user.password_hash);
-
-    if (!comparePassword) {
-        return res.status(400).json({
-            message: "Invalid username or password"
-        })
-    }
-
-    const userResponse = {
-        _id: user._id,
-        username: user.username,
-        role: user.role_id.name
-    }
-
-    const tokenData = await generateToken(user._id);
+export const listUser = TryCatch(async (req, res) => {
+    const users = await User.find().select("-password_hash").populate("role_id");
 
     res.status(200).json({
-        "message": "login successfully",
-        user: userResponse,
-        accessToken: tokenData.accessToken
+        users: users
     })
 })
 
-export const profile = async (req, res) => {
+export const userDetail = TryCatch(async (req, res) => {
 
-    const user = req.user;
+    const { id } = req.params
+
+    if (!checkFormatID(id, res)) return;
+
+    const user = await User.findOne({ _id: id }).select("-password_hash").populate("role_id");
+
+    if (!user) {
+        return res.status(404).json({
+            message: "User Notfound."
+        })
+    }
 
     res.status(200).json({
-        "message": "get profile successfully",
-        "user": user
+        user: user
     })
-}
+})
 
+export const updatePassword = TryCatch(async (req, res) => {
+    const { id } = req.params;
+    const { newPassword } = req.body;
+
+    if (!checkFormatID(id, res)) return;
+
+    const user = await User.findById(id).select("+password_hash");
+    if (!user) {
+        return res.status(404).json({ message: "User not found." });
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    user.password_hash = hashedPassword;
+
+    await user.save();
+
+    res.status(200).json({ message: "password updated successfully." });
+});
+
+
+
+export const removeUser = TryCatch(async (req, res) => {
+    const { id } = req.params
+
+    if (!checkFormatID(id, res)) return;
+
+    const result = await User.deleteOne({ _id: id });
+
+    if (result.deletedCount === 0) {
+        return res.status(404).json({ message: "User Notfound." });
+    }
+
+    return res.status(200).json({ message: "User deleted successfully." });
+})
