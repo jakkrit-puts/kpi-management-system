@@ -31,4 +31,4 @@ const KpiUpdateSchema = new mongoose.Schema({
     }
 });
 
-export const KpiUpdate = mongoose.model("KpiUpdate", KpiUpdateSchema);
+export const KpiUpdate = mongoose.models.KpiUpdate || mongoose.model("KpiUpdate", KpiUpdateSchema);

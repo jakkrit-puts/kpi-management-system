@@ -4,8 +4,10 @@ import { createKpiSchema, kpiUpdateProgressSchema, updateKpiSchema } from "../va
 import { handleZodValidation } from "../utils/handleValidation.js";
 import { Kpi } from "../models/kpi.js"
 import { KpiUpdate } from "../models/kpi_updates.js"
+import { User } from '../models/user.js'
 import { checkFormatID } from "../utils/format.js";
-
+import sendMail from "../configs/sendEmail.js";
+import { getNotiHtml } from "../templates/mailHtml.js";
 
 export const createKPI = TryCatch(async (req, res) => {
 
@@ -30,6 +32,18 @@ export const createKPI = TryCatch(async (req, res) => {
         start_date: start_date,
         end_date: end_date
     })
+
+    const user = await User.findById(assigned_user);
+
+    const html = getNotiHtml({ email: user.email, title: newKpi.title })
+
+    if (user) {
+        await sendMail({
+            to: user.email,
+            subject: `-- KPI Assigned Notification --`,
+            html: html
+        });
+    }
 
     res.status(201).json({
         message: "kpi created.",
@@ -156,10 +170,10 @@ export const addUpdateKpi = TryCatch(async (req, res) => {
     const kpi = await Kpi.findById(id);
     if (!kpi) return res.status(404).json({ message: "Kpi Notfound" });
 
-    console.log({userId});
+    console.log({ userId });
     const kpiOwner = await Kpi.findOne({ assigned_user: userId, _id: id });
-    console.log({kpiOwner});
-    
+    console.log({ kpiOwner });
+
     if (!kpiOwner) return res.status(403).json({ message: "Forbidden: Not KPI owner" });
 
     await KpiUpdate.create({

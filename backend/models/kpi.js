@@ -43,5 +43,4 @@ const KpiSchema = new mongoose.Schema({
     }
 });
 
-export const Kpi = mongoose.model("Kpi", KpiSchema);
-
+export const Kpi = mongoose.models.Kpi || mongoose.model("Kpi", KpiSchema);

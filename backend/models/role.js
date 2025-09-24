@@ -9,4 +9,4 @@ const RoleSchema = new mongoose.Schema({
     },
 }, { timestamps: true })
 
-export const Role = mongoose.model("Role", RoleSchema)
+export const Role = mongoose.models.Role || mongoose.model("Role", RoleSchema);
