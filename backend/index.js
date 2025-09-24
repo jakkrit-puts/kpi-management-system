@@ -9,6 +9,7 @@ import { seedRoles } from './models/seeds/seedRoles.js';
 import userRoutes from './routes/user.js'
 import authRoutes from './routes/auth.js'
 import kpiRoutes from './routes/kpi.js'
+import dashboardRoutes from './routes/dashboard.js'
 
 dotenv.config();
 
@@ -30,6 +31,7 @@ app.use(cors())
 app.use("/api/v1/auth", authRoutes)
 app.use("/api/v1/users", userRoutes)
 app.use("/api/v1/kpis", kpiRoutes)
+app.use("/api/v1/dashboard", dashboardRoutes)
 
 
 const PORT = process.env.PORT || 3000

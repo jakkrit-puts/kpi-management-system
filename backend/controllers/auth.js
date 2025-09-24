@@ -1,7 +1,7 @@
 import TryCatch from "../middlewares/try-catch.js";
 import sanitize from "mongo-sanitize";
 import bcrypt from "bcrypt"
-import { User } from "../models/User.js"
+import { User } from "../models/user.js"
 import { loginUserSchema } from "../validations/userValidation.js";
 import { handleZodValidation } from "../utils/handleValidation.js";
 import { generateToken } from "../utils/jwtToken.js";

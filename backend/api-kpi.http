@@ -5,15 +5,15 @@
 POST {{BASE_URL}}/kpis
 Content-Type: application/json
 # Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDM1ZWRhNzdlMWQ1MTcyMTczZjc3YSIsImlhdCI6MTc1ODY5MzM1NiwiZXhwIjoxNzU4NzAwNTU2fQ.GXBIFP9rBVLCELCMFNvJ1G6T3HmuIQ3Bbs86lumkXi0
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDI5NzA3NzdmYmVjZjhlZjY1NDg2NCIsImlhdCI6MTc1ODcwNDM3NywiZXhwIjoxNzU4NzExNTc3fQ.k4eJ9rm10IIZLQrvu5aTKSwxYh-ETG46evsJbOILvRY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDI5NzA3NzdmYmVjZjhlZjY1NDg2NCIsImlhdCI6MTc1ODcyNDUwMywiZXhwIjoxNzU4NzMxNzAzfQ.nK1tJy67iLjP65IjpsSb-XFfiXZN7fmIvKMUg0_xfKs
 
 {
-  "title": "Increase  7878",
-  "description": "ddfddf",
-  "target_value": 11,
+  "title": "Increase  444",
+  "description": "44444",
+  "target_value": 40,
   "actual_value": 0,
-  "status": "On Track",
-  "assigned_user": "68d38b5056379db205277fdb",
+  "status": "Off Track",
+  "assigned_user": "68d3bc3df1b8268e4eb8370d",
   "start_date": "2024-02-23T15:45:00.588Z",
   "end_date":  "2024-02-23T15:45:00.588Z"
 }
@@ -22,7 +22,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDI5NzA3N
 GET {{BASE_URL}}/kpis
 Content-Type: application/json
 # Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDM1ZWRhNzdlMWQ1MTcyMTczZjc3YSIsImlhdCI6MTc1ODY5MzM1NiwiZXhwIjoxNzU4NzAwNTU2fQ.GXBIFP9rBVLCELCMFNvJ1G6T3HmuIQ3Bbs86lumkXi0
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDI5NzA3NzdmYmVjZjhlZjY1NDg2NCIsImlhdCI6MTc1ODY5NDA5MiwiZXhwIjoxNzU4NzAxMjkyfQ.PJQmXRLzX1qddPnxfqem9r5urkl0xXp8fYqzRbHt8IM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDI5NzA3NzdmYmVjZjhlZjY1NDg2NCIsImlhdCI6MTc1ODcyNDUwMywiZXhwIjoxNzU4NzMxNzAzfQ.nK1tJy67iLjP65IjpsSb-XFfiXZN7fmIvKMUg0_xfKs
 
 
 ### detail kpi
@@ -57,17 +57,17 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDI5NzA3N
 
 
 ###  kpi progress list
-GET  {{BASE_URL}}/kpis/68d38ae656379db205277fca/updates
+GET  {{BASE_URL}}/kpis/68d403940f6ebb5b0c36dfce/updates
 Content-Type: application/json
 # Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDM1ZWRhNzdlMWQ1MTcyMTczZjc3YSIsImlhdCI6MTc1ODY5MzM1NiwiZXhwIjoxNzU4NzAwNTU2fQ.GXBIFP9rBVLCELCMFNvJ1G6T3HmuIQ3Bbs86lumkXi0
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDM1ZWRhNzdlMWQ1MTcyMTczZjc3YSIsImlhdCI6MTc1ODcwMDkxNywiZXhwIjoxNzU4NzA4MTE3fQ.87NxyBRgyEXOZvbXKKj3RcKCYFtDBSVjRTVFWlVUWHc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDNiYzNkZjFiODI2OGU0ZWI4MzcwZCIsImlhdCI6MTc1ODcyNjk5MywiZXhwIjoxNzU4NzM0MTkzfQ.g1k_TrbS-rhvJsNB8ew0hEKBicYIlEF2zMRif7nnE08
 
 ###  update kpi progress 
-POST {{BASE_URL}}/kpis/68d38b6956379db205277fdf/updates
+POST {{BASE_URL}}/kpis/68d403940f6ebb5b0c36dfce/updates
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDM1ZWRhNzdlMWQ1MTcyMTczZjc3YSIsImlhdCI6MTc1ODcwMDkxNywiZXhwIjoxNzU4NzA4MTE3fQ.87NxyBRgyEXOZvbXKKj3RcKCYFtDBSVjRTVFWlVUWHc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDNiYzNkZjFiODI2OGU0ZWI4MzcwZCIsImlhdCI6MTc1ODcyNjk5MywiZXhwIjoxNzU4NzM0MTkzfQ.g1k_TrbS-rhvJsNB8ew0hEKBicYIlEF2zMRif7nnE08
 
 {
-  "updated_value": 50.0,
+  "updated_value": 50,
   "comment": "Reached 50% by Q2"
 }

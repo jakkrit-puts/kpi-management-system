@@ -1,0 +1,18 @@
+@BASE_URL=http://localhost:3000/api/v1
+
+###    "On Track", "At Risk", "Off Track"
+GET {{BASE_URL}}/dashboard/kpis?userId=68d3bc3df1b8268e4eb8370d&status=Off Track
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDI5NzA3NzdmYmVjZjhlZjY1NDg2NCIsImlhdCI6MTc1ODcyNDUwMywiZXhwIjoxNzU4NzMxNzAzfQ.nK1tJy67iLjP65IjpsSb-XFfiXZN7fmIvKMUg0_xfKs
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDM1ZWRhNzdlMWQ1MTcyMTczZjc3YSIsImlhdCI6MTc1ODcyNTEzNywiZXhwIjoxNzU4NzMyMzM3fQ.Lu7usNKWE4HRIL7lvxcqjpu6fjMIDQs2iPQ5AqrtkK0
+
+###
+GET {{BASE_URL}}/dashboard/analytics/achieved
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDI5NzA3NzdmYmVjZjhlZjY1NDg2NCIsImlhdCI6MTc1ODcyNDUwMywiZXhwIjoxNzU4NzMxNzAzfQ.nK1tJy67iLjP65IjpsSb-XFfiXZN7fmIvKMUg0_xfKs
+
+###
+GET {{BASE_URL}}/dashboard/analytics/trends
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDI5NzA3NzdmYmVjZjhlZjY1NDg2NCIsImlhdCI6MTc1ODcyNDUwMywiZXhwIjoxNzU4NzMxNzAzfQ.nK1tJy67iLjP65IjpsSb-XFfiXZN7fmIvKMUg0_xfKs
+
+###
+GET {{BASE_URL}}/dashboard/analytics/status
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDI5NzA3NzdmYmVjZjhlZjY1NDg2NCIsImlhdCI6MTc1ODcyNDUwMywiZXhwIjoxNzU4NzMxNzAzfQ.nK1tJy67iLjP65IjpsSb-XFfiXZN7fmIvKMUg0_xfKs

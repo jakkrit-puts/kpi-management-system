@@ -170,9 +170,7 @@ export const addUpdateKpi = TryCatch(async (req, res) => {
     const kpi = await Kpi.findById(id);
     if (!kpi) return res.status(404).json({ message: "Kpi Notfound" });
 
-    console.log({ userId });
     const kpiOwner = await Kpi.findOne({ assigned_user: userId, _id: id });
-    console.log({ kpiOwner });
 
     if (!kpiOwner) return res.status(403).json({ message: "Forbidden: Not KPI owner" });
 
@@ -182,6 +180,9 @@ export const addUpdateKpi = TryCatch(async (req, res) => {
         comment: comment,
         updated_by: userId
     })
+
+    kpi.actual_value = updated_value;
+    await kpi.save();
 
     res.status(201).json({
         message: "kpi progress update.",
