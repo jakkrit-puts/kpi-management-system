@@ -11,4 +11,4 @@ Content-Type: application/json
 
 ### profile
 GET {{BASE_URL}}/auth/profile
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDM1ZWRhNzdlMWQ1MTcyMTczZjc3YSIsImlhdCI6MTc1ODY4Mjg2MywiZXhwIjoxNzU4NjkwMDYzfQ.9v7SqCWks6-AomR1O1O-zBk4PW8csOh5Qa5QzNPtA3s
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDNiYzNkZjFiODI2OGU0ZWI4MzcwZCIsImlhdCI6MTc1ODgwNzY4MywiZXhwIjoxNzU4ODE0ODgzfQ.GiPUIKQK-NCigsPCVeCj5ciPfV539fyQsaOXWgmUoVY
