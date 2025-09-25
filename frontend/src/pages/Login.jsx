@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import { AppData } from '../context/AppContext';
+import Logo from '../components/logos/Logo';
 
 const schema = yup
     .object({
@@ -47,7 +48,7 @@ export default function Login() {
                 localStorage.setItem("accessToken", response?.data.accessToken);
                 localStorage.setItem("userData", JSON.stringify(response?.data.user));
 
-                toast.success(response?.data?.message);                
+                toast.success(response?.data?.message);
 
                 setIsAuth(true)
                 setUserData(response?.data.user)
@@ -66,19 +67,12 @@ export default function Login() {
 
     return (
         <>
-            <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
-                <div className="sm:mx-auto sm:w-full sm:max-w-md">
-                    <img
-                        alt="Your Company"
-                        src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
-                        className="mx-auto h-10 w-auto"
-                    />
-                    <h2 className="mt-6 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-                        KPI Management
-                    </h2>
+            <div className="min-h-screen flex flex-col justify-center sm:px-6 lg:px-4">
+                <div className="mx-auto">
+                  <Logo />
                 </div>
 
-                <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
+                <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px] p-4">
                     <div className="bg-white px-6 py-12 shadow-sm sm:rounded-lg sm:px-12">
                         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                             <div>
@@ -92,7 +86,7 @@ export default function Login() {
                                         name="username"
                                         type="username"
                                         autoComplete="username"
-                                        className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                                        className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 sm:text-sm/6"
                                     />
                                     <p className='text-red-500'>{errors.username?.message}</p>
                                 </div>
@@ -109,7 +103,7 @@ export default function Login() {
                                         name="password"
                                         type="password"
                                         autoComplete="current-password"
-                                        className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                                        className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 sm:text-sm/6"
                                     />
                                     <p className='text-red-500'>{errors.password?.message}</p>
                                 </div>
@@ -123,7 +117,7 @@ export default function Login() {
                                                 id="remember-me"
                                                 name="remember-me"
                                                 type="checkbox"
-                                                className="col-start-1 row-start-1 appearance-none rounded-sm border border-gray-300 bg-white checked:border-indigo-600 checked:bg-indigo-600 indeterminate:border-indigo-600 indeterminate:bg-indigo-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto"
+                                                className="col-start-1 row-start-1 appearance-none rounded-sm border border-gray-300 bg-white checked:border-blue-600 checked:bg-blue-600 indeterminate:border-blue-600 indeterminate:bg-blue-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto"
                                             />
                                             <svg
                                                 fill="none"
@@ -156,7 +150,7 @@ export default function Login() {
                             <div>
                                 <button
                                     type="submit"
-                                    className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                    className="flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
                                 >
                                     {btnLoading ? "Submiting..." : " Sign in"}
                                 </button>

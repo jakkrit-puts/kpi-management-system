@@ -11,6 +11,7 @@ import {
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import { AppData } from '../context/AppContext'
 import { NavLink } from 'react-router-dom'
+import Logo from '../components/logos/Logo'
 
 const navigation = [
     { name: 'Dashboard', href: '/dashboard', icon: HomeIcon, current: true },
@@ -27,9 +28,9 @@ export default function MainLayout({ children }) {
     const { userData, logoutUser } = AppData()
 
     return (
-        <div>
+        <div className=''>
             {/* Mobile sidebar */}
-            <Dialog open={sidebarOpen} onClose={setSidebarOpen} className="relative z-50 lg:hidden">
+            <Dialog open={sidebarOpen} onClose={setSidebarOpen} className="relative z-50 lg:hidden ">
                 <DialogBackdrop className="fixed inset-0 bg-gray-900/80" />
                 <div className="fixed inset-0 flex">
                     <DialogPanel className="relative mr-16 flex w-full max-w-xs flex-1 transform transition duration-300 ease-in-out data-closed:-translate-x-full">
@@ -44,12 +45,7 @@ export default function MainLayout({ children }) {
                         {/* Sidebar */}
                         <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-4">
                             <div className="flex h-16 items-center justify-evenly">
-                                <img
-                                    src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
-                                    className="h-8 w-auto"
-                                    alt="Logo"
-                                />
-                                <p className="text-md">KPI Management</p>
+                                <Logo />
                             </div>
                             <nav>
                                 <ul className="space-y-1">
@@ -60,8 +56,8 @@ export default function MainLayout({ children }) {
                                                 className={({ isActive }) =>
                                                     classNames(
                                                         isActive
-                                                            ? 'bg-gray-50 text-indigo-600'
-                                                            : 'text-gray-700 hover:bg-gray-50 hover:text-indigo-600',
+                                                            ? 'bg-gray-50 text-blue-600'
+                                                            : 'text-gray-700 hover:bg-gray-50 hover:text-blue-600',
                                                         'group flex gap-x-3 rounded-md p-2 text-sm font-semibold',
                                                     )
                                                 }
@@ -82,12 +78,7 @@ export default function MainLayout({ children }) {
             <div className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-72 lg:flex-col bg-white border-r border-gray-200">
                 <div className="flex grow flex-col gap-y-5 overflow-y-auto px-6 pb-4">
                     <div className="flex h-16 items-center justify-evenly">
-                        <img
-                            src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
-                            className="h-8 w-auto"
-                            alt="Logo"
-                        />
-                        <p className="text-md">KPI Management</p>
+                        <Logo />
                     </div>
                     <nav>
                         <ul className="space-y-1">
@@ -98,8 +89,8 @@ export default function MainLayout({ children }) {
                                         className={({ isActive }) =>
                                             classNames(
                                                 isActive
-                                                    ? 'bg-gray-50 text-indigo-600'
-                                                    : 'text-gray-700 hover:bg-gray-50 hover:text-indigo-600',
+                                                    ? 'bg-gray-50 text-blue-600'
+                                                    : 'text-gray-700 hover:bg-gray-50 hover:text-blue-600',
                                                 'group flex gap-x-3 rounded-md p-2 text-sm font-semibold',
                                             )
                                         }
