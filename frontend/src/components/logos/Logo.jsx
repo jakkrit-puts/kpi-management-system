@@ -9,8 +9,8 @@ export default function Logo() {
                     <rect x="10" y="8" width="6" height="34" rx="1" fill="#FBBF24" />
                     <rect x="20" y="0" width="6" height="42" rx="1" fill="#10B981" />
                 </g>
-                <text x="48" y="35" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" fill="#0F172A">KPI</text>
-                <text x="92" y="40" font-family="Inter, Arial, sans-serif" font-size="12" fill="#475569">Management System</text>
+                <text x="48" y="35" fontFamily="Inter, Arial, sans-serif" fontSize="18" fontWeight="700" fill="#0F172A">KPI</text>
+                <text x="92" y="40" fontFamily="Inter, Arial, sans-serif" fontSize="12" fill="#475569">Management System</text>
             </svg>
         </>
     )
