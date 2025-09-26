@@ -1,6 +1,7 @@
 import TryCatch from "../middlewares/try-catch.js";
 import { Kpi } from "../models/kpi.js";
 import { KpiUpdate } from "../models/kpi_updates.js";
+import mongoose from "mongoose";
 import { checkFormatID } from "../utils/format.js";
 
 export const KpiOverview = TryCatch(async (req, res) => {
@@ -53,7 +54,22 @@ export const kpiFilter = TryCatch(async (req, res) => {
 
 export const analyzeAchieved = TryCatch(async (req, res) => {
 
+    const { userId, status } = req.query;
+
+
+    let match = {};
+
+    if (userId) {
+        if (!checkFormatID(userId, res)) return;
+        match.updated_by = new mongoose.Types.ObjectId(userId);
+    }
+
+    if (status) {
+        match.status = status;
+    }
+
     const result = await Kpi.aggregate([
+        { $match: match },
         {
             $group: {
                 _id: null,
@@ -82,7 +98,21 @@ export const analyzeAchieved = TryCatch(async (req, res) => {
 
 export const analyzeTrends = TryCatch(async (req, res) => {
 
+    const { userId, status } = req.query;
+    let newJSON;
+    let match = {};
+
+    if (userId) {
+        if (!checkFormatID(userId, res)) return;
+        match.updated_by = new mongoose.Types.ObjectId(userId);
+    }
+
+    if (status) {
+        match.status = status;
+    }
+
     const trends = await KpiUpdate.aggregate([
+        { $match: match },
         {
             $group: {
                 _id: { $dateToString: { format: "%Y-%m", date: "$updated_at" } },
@@ -92,19 +122,53 @@ export const analyzeTrends = TryCatch(async (req, res) => {
         { $sort: { "_id": 1 } }
     ]);
 
-    const newJSON = {
-        month: trends[0]._id,
-        avgProgress: parseFloat(trends[0].avgProgress).toFixed(2) || 0
-    };
+    if (trends.length > 0) {
+        newJSON = {
+            month: trends[0]._id,
+            avgProgress: parseFloat(trends[0].avgProgress).toFixed(2)
+        };
+    } else {
+        newJSON = {
+            month: null,
+            avgProgress: "0.00"
+        };
+    }
 
     res.status(200).json(newJSON);
+
+
 })
 
 export const analyzeStatus = TryCatch(async (req, res) => {
+    const { userId, status } = req.query;
+
+    const allStatuses = ["On Track", "At Risk", "Off Track"];
+    let match = {};
+
+    if (userId) {
+        if (!checkFormatID(userId, res)) return;
+        match.assigned_user = new mongoose.Types.ObjectId(userId);
+    }
+
+    if (status) {
+        match.status = status;
+    }
 
     const statusDist = await Kpi.aggregate([
+        { $match: match },
         { $group: { _id: "$status", count: { $sum: 1 } } }
     ]);
 
-    res.status(200).json(statusDist);
-})
+
+    const resultMap = statusDist.reduce((acc, curr) => {
+        acc[curr._id] = curr.count;
+        return acc;
+    }, {});
+
+    const finalResult = allStatuses.map((status) => ({
+        status,
+        count: resultMap[status] || 0,
+    }));
+
+    res.status(200).json(finalResult);
+});
