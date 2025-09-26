@@ -1,14 +1,17 @@
-import MainLayout from "../layouts/MainLayout";
-import UserAddEditModal from "../components/users/UserAddEditModal";
-import { AppData } from "../context/AppContext";
+import MainLayout from "../../layouts/MainLayout";
+import UserAddEditModal from "../../components/users/UserAddEditModal";
+import { AppData } from "../../context/AppContext";
 import { useEffect } from "react";
 import { Button } from "@headlessui/react";
 import { TrashIcon } from "@heroicons/react/24/outline";
+import NotAllow from "../NotAllow";
 
 
 export default function User() {
 
-  const { userList, fetchUserList, removeUser } = AppData()
+  const { userList, fetchUserList, removeUser, role } = AppData()
+
+  if (role !== "admin") return <NotAllow />
 
   useEffect(() => {
     fetchUserList()
@@ -52,7 +55,7 @@ export default function User() {
                 <tbody className="divide-y divide-gray-200">
                   {userList && userList.map((u, index) => (
                     <tr key={u._id}>
-                       <td className="py-4 pr-3 pl-4 text-sm font-medium whitespace-nowrap text-gray-900 sm:pl-0">
+                      <td className="py-4 pr-3 pl-4 text-sm font-medium whitespace-nowrap text-gray-900 sm:pl-0">
                         {index + 1}
                       </td>
                       <td className="py-4 pr-3 pl-4 text-sm font-medium whitespace-nowrap text-gray-900 sm:pl-0">

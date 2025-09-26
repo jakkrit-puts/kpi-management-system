@@ -13,11 +13,17 @@ import { AppData } from '../context/AppContext'
 import { NavLink } from 'react-router-dom'
 import Logo from '../components/logos/Logo'
 
-const navigation = [
+const navigationAdmin = [
     { name: 'Dashboard', href: '/dashboard', icon: HomeIcon, current: true },
     { name: 'Users', href: '/user', icon: UsersIcon, current: false },
     { name: 'KPIs', href: '/kpi', icon: FolderIcon, current: false },
 ]
+
+const navigationUser = [
+    { name: 'Dashboard', href: '/dashboard', icon: HomeIcon, current: true },
+    { name: 'KPIs', href: '/user/kpi', icon: FolderIcon, current: false },
+]
+
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -25,7 +31,7 @@ function classNames(...classes) {
 
 export default function MainLayout({ children }) {
     const [sidebarOpen, setSidebarOpen] = useState(false)
-    const { userData, logoutUser } = AppData()
+    const { userData, logoutUser, role } = AppData()    
 
     return (
         <div className=''>
@@ -49,7 +55,26 @@ export default function MainLayout({ children }) {
                             </div>
                             <nav>
                                 <ul className="space-y-1">
-                                    {navigation.map((item) => (
+                                    {role === "admin" && navigationAdmin.map((item) => (
+                                        <li key={item.name}>
+                                            <NavLink
+                                                to={item.href}
+                                                className={({ isActive }) =>
+                                                    classNames(
+                                                        isActive
+                                                            ? 'bg-gray-50 text-blue-600'
+                                                            : 'text-gray-700 hover:bg-gray-50 hover:text-blue-600',
+                                                        'group flex gap-x-3 rounded-md p-2 text-sm font-semibold',
+                                                    )
+                                                }
+                                            >
+                                                <item.icon className="h-6 w-6 shrink-0" />
+                                                {item.name}
+                                            </NavLink>
+                                        </li>
+                                    ))}
+
+                                     {role === "user" && navigationUser.map((item) => (
                                         <li key={item.name}>
                                             <NavLink
                                                 to={item.href}
@@ -82,7 +107,26 @@ export default function MainLayout({ children }) {
                     </div>
                     <nav>
                         <ul className="space-y-1">
-                            {navigation.map((item) => (
+                            {role === "admin" && navigationAdmin.map((item) => (
+                                <li key={item.name}>
+                                    <NavLink
+                                        to={item.href}
+                                        className={({ isActive }) =>
+                                            classNames(
+                                                isActive
+                                                    ? 'bg-gray-50 text-blue-600'
+                                                    : 'text-gray-700 hover:bg-gray-50 hover:text-blue-600',
+                                                'group flex gap-x-3 rounded-md p-2 text-sm font-semibold',
+                                            )
+                                        }
+                                    >
+                                        <item.icon className="h-6 w-6 shrink-0" />
+                                        {item.name}
+                                    </NavLink>
+                                </li>
+                            ))}
+
+                             {role === "user" && navigationUser.map((item) => (
                                 <li key={item.name}>
                                     <NavLink
                                         to={item.href}

@@ -21,7 +21,7 @@ export default function Login() {
 
     const [btnLoading, setBtnLoading] = useState(false);
     const navigate = useNavigate()
-    const { setIsAuth, setUserData } = AppData()
+    const { setIsAuth, setUserData, setRole } = AppData()
 
     const {
         register,
@@ -51,13 +51,15 @@ export default function Login() {
                 toast.success(response?.data?.message);
 
                 setIsAuth(true)
+                setRole(response.data?.user?.role)
                 setUserData(response?.data.user)
-
                 navigate("/dashboard");
             }
 
 
         } catch (error) {
+            console.log(error);
+
             const message = error.response?.data?.message || "Something went wrong";
             toast.error(message);
         } finally {
@@ -69,7 +71,7 @@ export default function Login() {
         <>
             <div className="min-h-screen flex flex-col justify-center sm:px-6 lg:px-4">
                 <div className="mx-auto">
-                  <Logo />
+                    <Logo />
                 </div>
 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px] p-4">

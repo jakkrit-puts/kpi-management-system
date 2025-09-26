@@ -1,14 +1,13 @@
-import MainLayout from "../layouts/MainLayout";
-import { AppData } from "../context/AppContext";
+import MainLayout from "../../layouts/MainLayout";
+import { AppData } from "../../context/AppContext";
 import { useEffect } from "react";
-import { formatDate } from '../utils/utils'
-import KPIAddEditModal from "../components/kpi/KPIAddEditModal";
-import { Button } from "@headlessui/react";
-import { TrashIcon } from "@heroicons/react/24/outline";
+import { formatDate } from '../../utils/utils'
+import UserAddProgressModal from "../../components/kpi/UserAddProgressModal";
+import UserListProgress from "../../components/kpi/UserListProgress";
 
-export default function KPI() {
+export default function UserKPI() {
 
-  const { fetchKpiList, kpiList, removeKPI } = AppData()
+  const { fetchKpiList, kpiList } = AppData()
 
   useEffect(() => {
     fetchKpiList()
@@ -19,10 +18,7 @@ export default function KPI() {
       <div className="px-4 sm:px-6 lg:px-8">
         <div className="sm:flex sm:items-center border-b pb-1">
           <div className="sm:flex-auto ">
-            <h1 className="text-base font-semibold text-gray-900">KPI List</h1>
-          </div>
-          <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-            <KPIAddEditModal action={"Add"} />
+            <h1 className="text-base font-semibold text-gray-900">My KPI List</h1>
           </div>
         </div>
         <div className="mt-2 flow-root">
@@ -79,14 +75,8 @@ export default function KPI() {
                       <td className="px-3 py-4 text-sm whitespace-nowrap text-gray-500">{k.assigned_user?.username}</td>
                       <td className="px-3 py-4 text-sm whitespace-nowrap text-gray-500">{formatDate(k.start_date)} - {formatDate(k.end_date)}</td>
                       <td className="py-4 pr-4 pl-3 text-right text-sm font-medium whitespace-nowrap sm:pr-0 space-x-1">
-                        <KPIAddEditModal action={"Edit"} data={k} id={k._id} />
-                        <Button
-                          onClick={() => removeKPI(k._id)}
-                          className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white 
-                          hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                        >
-                          <TrashIcon width={15} />
-                        </Button>
+                        <UserAddProgressModal id={k._id} />
+                        <UserListProgress id={k._id} />
                       </td>
                     </tr>
                   ))}

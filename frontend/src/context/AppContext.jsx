@@ -9,11 +9,10 @@ export const AppProvider = ({ children }) => {
     const [userData, setUserData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [isAuth, setIsAuth] = useState(false)
+    const [role, setRole] = useState(null)
 
     const [userList, setUserList] = useState(null);
     const [kpiList, setKpiList] = useState(null);
-
-
 
     async function fetchUser() {
         setLoading(true)
@@ -22,6 +21,7 @@ export const AppProvider = ({ children }) => {
 
             setUserData(data.user);
             setIsAuth(true);
+            setRole(data.user?.role_id?.name)
         } catch (error) {
             console.log(error);
         } finally {
@@ -31,6 +31,9 @@ export const AppProvider = ({ children }) => {
 
     async function fetchUserList() {
         try {
+
+            if (role !== "admin") return;
+
             const { data } = await api.get(`${server}/api/v1/users`);
 
             setUserList(data?.users);
@@ -83,10 +86,12 @@ export const AppProvider = ({ children }) => {
         }
     }
 
+
     async function logoutUser() {
         try {
             setIsAuth(false);
             setUserData(null)
+            setRole(null)
             localStorage.clear()
         } catch (error) {
 
@@ -102,7 +107,7 @@ export const AppProvider = ({ children }) => {
     return <AppContext.Provider value={{
         setIsAuth, isAuth, userData, setUserData, loading,
         logoutUser, userList, fetchUserList, removeUser, kpiList, fetchKpiList,
-        removeKPI
+        removeKPI, role, setRole
     }}>
         {children}
     </AppContext.Provider>
