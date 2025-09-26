@@ -11,6 +11,8 @@ export const AppProvider = ({ children }) => {
     const [isAuth, setIsAuth] = useState(false)
 
     const [userList, setUserList] = useState(null);
+    const [kpiList, setKpiList] = useState(null);
+
 
 
     async function fetchUser() {
@@ -40,18 +42,42 @@ export const AppProvider = ({ children }) => {
     async function removeUser(id) {
         try {
 
-            if(!id) return;
+            if (!id) return;
 
             const response = await api.delete(`${server}/api/v1/users/${id}`);
-
-            console.log({response});
-            
 
             if (response) {
                 toast.success(response?.data?.message);
             }
 
             fetchUserList()
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async function fetchKpiList() {
+        try {
+            const { data } = await api.get(`${server}/api/v1/kpis`);
+
+            setKpiList(data?.kpis);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async function removeKPI(id) {
+        try {
+
+            if (!id) return;
+
+            const response = await api.delete(`${server}/api/v1/kpis/${id}`);
+
+            if (response) {
+                toast.success(response?.data?.message);
+            }
+
+            fetchKpiList()
         } catch (error) {
             console.log(error);
         }
@@ -69,10 +95,15 @@ export const AppProvider = ({ children }) => {
 
     useEffect(() => {
         fetchUser();
-        fetchUserList()
+        fetchUserList();
+        fetchKpiList();
     }, []);
 
-    return <AppContext.Provider value={{ setIsAuth, isAuth, userData, setUserData, loading, logoutUser, userList, fetchUserList, removeUser }}>
+    return <AppContext.Provider value={{
+        setIsAuth, isAuth, userData, setUserData, loading,
+        logoutUser, userList, fetchUserList, removeUser, kpiList, fetchKpiList,
+        removeKPI
+    }}>
         {children}
     </AppContext.Provider>
 }

@@ -16,16 +16,14 @@ const schemaAdd = yup
     email: yup.string().required(),
     role_id: yup.string().required(),
   })
-  .required()
 
 const schemaEdit = yup
   .object({
     password: yup.string().optional(),
     role_id: yup.string().required(),
   })
-  .required()
 
-export default function UserAddEditModal({ action, id="" }) {
+export default function UserAddEditModal({ action, id = "" }) {
 
   const schema = action === "Add" ? schemaAdd : schemaEdit;
 

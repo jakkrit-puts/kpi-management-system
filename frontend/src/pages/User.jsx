@@ -33,6 +33,9 @@ export default function User() {
                 <thead>
                   <tr>
                     <th scope="col" className="py-3.5 pr-3 pl-4 text-left text-sm font-semibold text-gray-900 sm:pl-0">
+                      #
+                    </th>
+                    <th scope="col" className="py-3.5 pr-3 pl-4 text-left text-sm font-semibold text-gray-900 sm:pl-0">
                       Name
                     </th>
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
@@ -41,20 +44,23 @@ export default function User() {
                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                       Role
                     </th>
-                    <th scope="col" className="text-right text-sm font-semibold text-gray-900">
+                    <th scope="col" className="text-center text-sm font-semibold text-gray-900">
                       Action
                     </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
-                  {userList && userList.map((u) => (
+                  {userList && userList.map((u, index) => (
                     <tr key={u._id}>
+                       <td className="py-4 pr-3 pl-4 text-sm font-medium whitespace-nowrap text-gray-900 sm:pl-0">
+                        {index + 1}
+                      </td>
                       <td className="py-4 pr-3 pl-4 text-sm font-medium whitespace-nowrap text-gray-900 sm:pl-0">
                         {u.username}
                       </td>
                       <td className="px-3 py-4 text-sm whitespace-nowrap text-gray-500">{u.email}</td>
                       <td className="px-3 py-4 text-sm whitespace-nowrap text-gray-500">{u.role_id?.name}</td>
-                      <td className=" text-right text-sm font-medium whitespace-nowrap sm:pr-0 space-x-1">
+                      <td className=" text-center text-sm font-medium whitespace-nowrap sm:pr-0 space-x-1">
                         <UserAddEditModal action={"Edit"} id={u._id} />
                         <Button
                           onClick={() => removeUser(u._id)}

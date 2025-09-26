@@ -58,11 +58,11 @@ export const listKPI = TryCatch(async (req, res) => {
     let kpis;
 
     if (role === "admin") {
-        kpis = await Kpi.find().populate("assigned_user", "_id username")
+        kpis = await Kpi.find().populate("assigned_user", "_id username").sort({ createdAt: -1 });
     }
 
     if (role === "user") {
-        kpis = await Kpi.find({ assigned_user: userId }).populate("assigned_user", "_id username")
+        kpis = await Kpi.find({ assigned_user: userId }).populate("assigned_user", "_id username").sort({ createdAt: -1 });
     }
 
     res.status(200).json({

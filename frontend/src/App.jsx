@@ -9,7 +9,7 @@ import User from './pages/User'
 import KPI from './pages/KPI'
 import Notfound from './pages/Notfound'
 
-export const server = "http://localhost:3000";
+export const server = import.meta.env.VITE_BASE_API_URL;
 
 export default function App() {
 
