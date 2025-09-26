@@ -44,7 +44,6 @@ const totalAchieved = Math.round(
 export default function Dashboard() {
   const [filterUser, setFilterUser] = useState("All");
   const [filterStatus, setFilterStatus] = useState("All");
-  const [filterCategory, setFilterCategory] = useState("All");
 
   const doughnutData = {
     labels: kpiStatusData.map(item => item._id),

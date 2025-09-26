@@ -2,7 +2,7 @@ import TryCatch from "../middlewares/try-catch.js";
 import sanitize from "mongo-sanitize";
 import bcrypt from "bcrypt"
 import { User } from "../models/user.js"
-import { createUserSchema } from "../validations/userValidation.js";
+import { createUserSchema, updateUserSchema } from "../validations/userValidation.js";
 import { handleZodValidation } from "../utils/handleValidation.js";
 import { checkFormatID } from "../utils/format.js";
 
@@ -52,7 +52,10 @@ export const create = TryCatch(async (req, res) => {
 })
 
 export const listUser = TryCatch(async (req, res) => {
-    const users = await User.find().select("-password_hash").populate("role_id");
+
+    const userId = req.user._id;
+
+    const users = await User.find({ _id: { $ne: userId } }).select("-password_hash").populate("role_id");
 
     res.status(200).json({
         users: users
@@ -78,9 +81,17 @@ export const userDetail = TryCatch(async (req, res) => {
     })
 })
 
-export const updatePassword = TryCatch(async (req, res) => {
+export const updateUser = TryCatch(async (req, res) => {
     const { id } = req.params;
-    const { newPassword } = req.body;
+
+    const sanitizedBody = sanitize(req.body);
+
+    const validation = updateUserSchema.safeParse(sanitizedBody);
+
+    const errorResponse = handleZodValidation(validation, res);
+    if (errorResponse) return;
+
+    const { password, role_id } = validation.data;
 
     if (!checkFormatID(id, res)) return;
 
@@ -89,12 +100,18 @@ export const updatePassword = TryCatch(async (req, res) => {
         return res.status(404).json({ message: "User not found." });
     }
 
-    const hashedPassword = await bcrypt.hash(newPassword, 10);
-    user.password_hash = hashedPassword;
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    if (password === "") {
+        user.role_id = role_id;
+    } else {
+        user.password_hash = hashedPassword
+        user.role_id = role_id;
+    }
 
     await user.save();
 
-    res.status(200).json({ message: "password updated successfully." });
+    res.status(200).json({ message: "updated successfully." });
 });
 
 export const removeUser = TryCatch(async (req, res) => {

@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { server } from "../App";
-import axios from "axios";
+import api from "../api-intercepter";
+import { toast } from "react-toastify";
 
 const AppContext = createContext(null)
 
@@ -9,17 +10,13 @@ export const AppProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
     const [isAuth, setIsAuth] = useState(false)
 
+    const [userList, setUserList] = useState(null);
+
+
     async function fetchUser() {
         setLoading(true)
         try {
-
-            const token = localStorage.getItem("accessToken");
-
-            const { data } = await axios.get(`${server}/api/v1/auth/profile`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
+            const { data } = await api.get(`${server}/api/v1/auth/profile`);
 
             setUserData(data.user);
             setIsAuth(true);
@@ -27,6 +24,36 @@ export const AppProvider = ({ children }) => {
             console.log(error);
         } finally {
             setLoading(false);
+        }
+    }
+
+    async function fetchUserList() {
+        try {
+            const { data } = await api.get(`${server}/api/v1/users`);
+
+            setUserList(data?.users);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async function removeUser(id) {
+        try {
+
+            if(!id) return;
+
+            const response = await api.delete(`${server}/api/v1/users/${id}`);
+
+            console.log({response});
+            
+
+            if (response) {
+                toast.success(response?.data?.message);
+            }
+
+            fetchUserList()
+        } catch (error) {
+            console.log(error);
         }
     }
 
@@ -42,9 +69,10 @@ export const AppProvider = ({ children }) => {
 
     useEffect(() => {
         fetchUser();
+        fetchUserList()
     }, []);
 
-    return <AppContext.Provider value={{ setIsAuth, isAuth, userData, setUserData, loading, logoutUser }}>
+    return <AppContext.Provider value={{ setIsAuth, isAuth, userData, setUserData, loading, logoutUser, userList, fetchUserList, removeUser }}>
         {children}
     </AppContext.Provider>
 }
