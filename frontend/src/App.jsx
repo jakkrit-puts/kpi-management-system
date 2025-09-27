@@ -10,7 +10,7 @@ import KPI from './pages/admin/KPI'
 import Notfound from './pages/Notfound'
 import UserKPI from './pages/user/UserKPI'
 
-export const server = import.meta.env.VITE_BASE_API_URL;
+export const server = import.meta.env.VITE_API_URL;
 
 export default function App() {
 

@@ -1,9 +1,11 @@
+import mongoose from "mongoose";
 import { Role } from "../role.js";
 
 const roles = [
-    { name: "admin" },
-    { name: "user" },
+    { _id: new mongoose.Types.ObjectId("64a123456789abcdef000001"), name: "admin" },
+    { _id: new mongoose.Types.ObjectId("64a123456789abcdef000002"), name: "user" },
 ];
+
 
 export const seedRoles = async () => {
     try {

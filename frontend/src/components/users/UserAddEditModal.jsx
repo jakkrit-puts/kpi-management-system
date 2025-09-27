@@ -40,8 +40,8 @@ export default function UserAddEditModal({ action, id = "" }) {
   })
 
   const roles = [
-    { id: "68d292130cd7093b3b52599e", name: "Admin" },
-    { id: "68d292130cd7093b3b5259a4", name: "User" },
+    { id: "64a123456789abcdef000001", name: "Admin" },
+    { id: "64a123456789abcdef000002", name: "User" },
   ];
 
   function open() {

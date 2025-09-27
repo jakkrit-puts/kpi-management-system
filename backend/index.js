@@ -5,6 +5,7 @@ import cors from 'cors'
 // sub routes
 import connectDB from './configs/db.js'
 import { seedRoles } from './models/seeds/seedRoles.js';
+import { seedUsers } from './models/seeds/seedUsers.js';
 
 import userRoutes from './routes/user.js'
 import authRoutes from './routes/auth.js'
@@ -20,6 +21,8 @@ const app = express()
 
 // seed data
 await seedRoles();
+await seedUsers();
+
 
 // middlewares
 app.set('trust proxy', 1);
