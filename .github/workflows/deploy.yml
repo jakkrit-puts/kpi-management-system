@@ -41,7 +41,6 @@ jobs:
 
       - name: Deploy with Docker Compose
         run: |
-          export VITE_API_URL=${{ secrets.VITE_API_URL }}
           ssh -o StrictHostKeyChecking=no ${{ secrets.DO_USER }}@${{ secrets.DO_HOST }} << 'EOF'
             cd /root/project/kpi-management-system
             git pull origin main

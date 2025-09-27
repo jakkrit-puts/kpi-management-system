@@ -27,13 +27,11 @@ services:
     build:
       context: ./frontend
       args:
-        VITE_API_URL: ${VITE_API_URL}
+        VITE_API_URL: "http://128.199.164.38:3000"
     container_name: frontend-app
     restart: always
     ports:
       - "3001:80"
-    environment:
-      - VITE_API_URL=${VITE_API_URL}
     depends_on:
       - backend-app
 
