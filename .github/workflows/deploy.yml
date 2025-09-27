@@ -21,13 +21,17 @@ jobs:
       - name: Upload backend .env
         run: |
           ssh ${{ secrets.DO_USER }}@${{ secrets.DO_HOST }} << 'EOF'
-            echo "${{ secrets.ENV_BACKEND }}" > /root/project/backend/.env
+            cat > /root/project/backend/.env << EOL
+            ${{ secrets.ENV_BACKEND }}
+            EOL
           EOF
 
       - name: Upload frontend .env
         run: |
           ssh ${{ secrets.DO_USER }}@${{ secrets.DO_HOST }} << 'EOF'
-            echo "${{ secrets.ENV_FRONTEND }}" > /root/project/frontend/.env.production
+            cat > /root/project/frontend/.env.production << EOL
+            ${{ secrets.ENV_FRONTEND }}
+            EOL
           EOF
 
       - name: Deploy with Docker Compose
