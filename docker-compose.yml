@@ -23,8 +23,6 @@ services:
 
   frontend-app:
     build: ./frontend
-    env_file:
-      - ./frontend/.env
     container_name: frontend-app
     restart: always
     ports:
