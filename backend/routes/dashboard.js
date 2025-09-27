@@ -9,7 +9,7 @@ router.get("/kpi-overview", [isAuth, authAdmin], KpiOverview)
 router.get("/kpis", [isAuth, authAdmin], kpiFilter)
 
 router.get("/analytics/achieved", [isAuth, authAdmin], analyzeAchieved)
-router.get("/analytics/trends", [isAuth, authAdmin], analyzeTrends)
-router.get("/analytics/status", [isAuth, authAdmin], analyzeStatus)
+router.get("/analytics/trends", [isAuth], analyzeTrends)
+router.get("/analytics/status", [isAuth], analyzeStatus)
 
 export default router

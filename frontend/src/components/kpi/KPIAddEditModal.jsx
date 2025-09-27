@@ -1,5 +1,5 @@
 import { Button, Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
@@ -85,7 +85,8 @@ export default function KPIAddEditModal({ action, id = "", data }) {
     const schema = action === "Add" ? schemaAdd : schemaEdit;
 
     const [isOpen, setIsOpen] = useState(false);
-    const { userList, fetchKpiList } = AppData()
+    const [loading, setLoading] = useState(false);
+    const { userList, fetchUserList, fetchKpiList } = AppData()
 
     const {
         register,
@@ -116,6 +117,7 @@ export default function KPIAddEditModal({ action, id = "", data }) {
     }
 
     const onSubmit = async (data) => {
+        setLoading(true)
         try {
             let response;
             if (action === "Add") {
@@ -131,11 +133,18 @@ export default function KPIAddEditModal({ action, id = "", data }) {
             close()
             fetchKpiList()
             reset()
+            setLoading(false)
         } catch (error) {
             const message = error.response?.data?.message || "Something went wrong";
             toast.error(message);
+        } finally {
+            setLoading(false)
         }
     }
+
+    useEffect(() => {
+        fetchUserList()
+    }, [])
 
     return (
         <>
@@ -297,7 +306,7 @@ export default function KPIAddEditModal({ action, id = "", data }) {
                                             type="submit"
                                             className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400"
                                         >
-                                            Save
+                                            {loading ? "Saving..." : "Save"}
                                         </Button>
                                     </div>
                                 </form>

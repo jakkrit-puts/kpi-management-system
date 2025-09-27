@@ -2,7 +2,7 @@ import TryCatch from "../middlewares/try-catch.js";
 import { Kpi } from "../models/kpi.js";
 import { KpiUpdate } from "../models/kpi_updates.js";
 import mongoose from "mongoose";
-import { checkFormatID } from "../utils/format.js";
+import { checkFormatID, convertMonth } from "../utils/format.js";
 
 export const KpiOverview = TryCatch(async (req, res) => {
 
@@ -97,9 +97,8 @@ export const analyzeAchieved = TryCatch(async (req, res) => {
 })
 
 export const analyzeTrends = TryCatch(async (req, res) => {
-
     const { userId, status } = req.query;
-    let newJSON;
+
     let match = {};
 
     if (userId) {
@@ -122,32 +121,40 @@ export const analyzeTrends = TryCatch(async (req, res) => {
         { $sort: { "_id": 1 } }
     ]);
 
-    if (trends.length > 0) {
-        newJSON = {
-            month: trends[0]._id,
-            avgProgress: parseFloat(trends[0].avgProgress).toFixed(2)
-        };
-    } else {
-        newJSON = {
-            month: null,
-            avgProgress: "0.00"
-        };
+
+    const newJSON = trends.map(item => ({
+        month: convertMonth(item._id),
+        avgProgress: parseFloat(item.avgProgress).toFixed(2)
+    }));
+
+    if (newJSON.length === 0) {
+        newJSON.push({ month: null, avgProgress: "0.00" });
     }
 
     res.status(200).json(newJSON);
+});
 
-
-})
 
 export const analyzeStatus = TryCatch(async (req, res) => {
+
     const { userId, status } = req.query;
 
+    let currentUser;
     const allStatuses = ["On Track", "At Risk", "Off Track"];
+
+    const role = req.user.role_id.name
+
+    if (role === "user") {
+        currentUser = req.user._id
+    } else if (role === "admin") {
+        currentUser = userId
+    }
+
     let match = {};
 
-    if (userId) {
-        if (!checkFormatID(userId, res)) return;
-        match.assigned_user = new mongoose.Types.ObjectId(userId);
+    if (currentUser) {
+        if (!checkFormatID(currentUser, res)) return;
+        match.assigned_user = new mongoose.Types.ObjectId(currentUser);
     }
 
     if (status) {

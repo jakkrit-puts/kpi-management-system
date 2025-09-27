@@ -12,6 +12,9 @@ export const seedUsers = async () => {
 
             const hashPassword = await bcrypt.hash(user.password, 10);
 
+            const findUser = await User.find();
+            if (findUser.length > 0) return
+
             const exists = await User.findOne({
                 username: user.username,
             });

@@ -86,20 +86,6 @@ export default function UserAddProgressModal({ id }) {
                             <form onSubmit={handleSubmit(onSubmit)} className="mt-4 space-y-4">
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700">
-                                        Comment
-                                    </label>
-                                    <input
-                                        type="text"
-                                        name="comment"
-                                        autoComplete=""
-                                        {...register("comment")}
-                                        className="block w-full rounded-md border-gray-300 px-3 py-1.5 text-sm shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                                    />
-                                    <p className='text-red-500'>{errors.comment?.message}</p>
-                                </div>
-
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700">
                                         Actual Value
                                     </label>
                                     <input
@@ -110,6 +96,19 @@ export default function UserAddProgressModal({ id }) {
                                         className="block w-full rounded-md border-gray-300 px-3 py-1.5 text-sm shadow-sm focus:border-blue-500 focus:ring-blue-500"
                                     />
                                     <p className='text-red-500'>{errors.updated_value?.message}</p>
+                                </div>
+                                  <div>
+                                    <label className="block text-sm font-medium text-gray-700">
+                                        Comment
+                                    </label>
+                                    <input
+                                        type="text"
+                                        name="comment"
+                                        autoComplete=""
+                                        {...register("comment")}
+                                        className="block w-full rounded-md border-gray-300 px-3 py-1.5 text-sm shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                                    />
+                                    <p className='text-red-500'>{errors.comment?.message}</p>
                                 </div>
 
                                 <div className="mt-6 flex justify-end gap-2">

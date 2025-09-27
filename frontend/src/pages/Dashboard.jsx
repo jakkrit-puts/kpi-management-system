@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Doughnut, Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -11,6 +11,9 @@ import {
   LineElement,
 } from 'chart.js';
 import MainLayout from '../layouts/MainLayout'
+import { AppData } from '../context/AppContext';
+import api from '../api-intercepter';
+import { server } from '../App';
 
 ChartJS.register(
   ArcElement,
@@ -22,50 +25,84 @@ ChartJS.register(
   LineElement
 );
 
-const kpiStatusData = [
-  { _id: "Off Track", count: 6 },
-  { _id: "At Risk", count: 1 },
-  { _id: "On Track", count: 18 },
-];
+const lineOptions = {
+  responsive: true,
+  plugins: { legend: { display: true } },
+  scales: { y: { beginAtZero: true, max: 100 } },
+}
 
-const achievementData = [
-  { month: "Jan", percent: 50 },
-  { month: "Feb", percent: 65 },
-  { month: "Mar", percent: 48 },
-  { month: "Apr", percent: 70 },
-];
-
-
-const totalAchieved = Math.round(
-  (kpiStatusData.find(k => k._id === "On Track")?.count || 0) /
-  kpiStatusData.reduce((sum, k) => sum + k.count, 0) * 100
-);
+const doughnutOptions = { responsive: true, maintainAspectRatio: false };
 
 export default function Dashboard() {
   const [filterUser, setFilterUser] = useState("All");
   const [filterStatus, setFilterStatus] = useState("All");
+  const [kpiStatusData, setKpiStatusData] = useState(null)
+  const [achievementData, setAchievementData] = useState(null)
+
+
+  const { fetchUserList, userList, role } = AppData()
+
+
+  const analyzeStatus = async (filterUser, filterStatus) => {
+
+    let response;
+
+    if (filterUser === "All" && filterStatus === "All") {
+      response = await api.get(`${server}/api/v1/dashboard/analytics/status`);
+    } else {
+      const params = new URLSearchParams();
+
+      if (filterUser !== "All") params.append("userId", filterUser);
+      if (filterStatus !== "All") params.append("status", filterStatus);
+
+      response = await api.get(
+        `${server}/api/v1/dashboard/analytics/status?${params.toString()}`
+      );
+    }
+
+    setKpiStatusData(response?.data)
+  }
+
+  const analyzeAchievementTrends = async (filterUser, filterStatus) => {
+
+    let response;
+
+    if (filterUser === "All" && filterStatus === "All") {
+      response = await api.get(`${server}/api/v1/dashboard/analytics/trends`);
+    } else {
+      const params = new URLSearchParams();
+
+      if (filterUser !== "All") params.append("userId", filterUser);
+      if (filterStatus !== "All") params.append("status", filterStatus);
+
+      response = await api.get(
+        `${server}/api/v1/dashboard/analytics/trends?${params.toString()}`
+      );
+    }
+
+    setAchievementData(response?.data)
+  }
 
   const doughnutData = {
-    labels: kpiStatusData.map(item => item._id),
+    labels: kpiStatusData?.map(item => item.status),
     datasets: [
       {
         label: 'KPI Status',
-        data: kpiStatusData.map(item => item.count),
-        backgroundColor: ['#EF4444', '#FBBF24', '#10B981'],
-        borderColor: ['#B91C1C', '#B45309', '#047857'],
+        data: kpiStatusData?.map(item => item.count),
+        backgroundColor: ['#10B981', '#FBBF24', '#EF4444'],
+        borderColor: ['#047857', '#B45309', '#B91C1C'],
         borderWidth: 1,
       },
     ],
   };
 
-  const doughnutOptions = { responsive: true, maintainAspectRatio: false };
 
   const lineData = {
-    labels: achievementData.map(item => item.month),
+    labels: achievementData?.map(item => item.month),
     datasets: [
       {
         label: 'KPI Achievement %',
-        data: achievementData.map(item => item.percent),
+        data: achievementData?.map(item => item.avgProgress),
         fill: false,
         borderColor: '#3B82F6',
         backgroundColor: '#3B82F6',
@@ -74,11 +111,13 @@ export default function Dashboard() {
     ],
   };
 
-  const lineOptions = {
-    responsive: true,
-    plugins: { legend: { display: true } },
-    scales: { y: { beginAtZero: true, max: 100 } },
-  };
+
+  useEffect(() => {
+    fetchUserList()
+
+    analyzeStatus(filterUser, filterStatus)
+    analyzeAchievementTrends(filterUser, filterStatus)
+  }, [filterUser, filterStatus])
 
   return (
     <MainLayout>
@@ -87,13 +126,20 @@ export default function Dashboard() {
       </div>
       <div className="p-6 space-y-6">
         <div className="flex gap-4">
-          <select className="border rounded px-2 py-1" value={filterUser} onChange={e => setFilterUser(e.target.value)}>
-            <option>All Users</option>
-            <option>User A</option>
-            <option>User B</option>
-          </select>
+
+          {role && role === "admin" && (
+            <select className="border rounded px-2 py-1" value={filterUser} onChange={e => setFilterUser(e.target.value)}>
+              <option value="All">All Users</option>
+              {userList && userList.map((u) => (
+                <option key={u._id} value={u._id}>
+                  {u.username}
+                </option>
+              ))}
+            </select>
+          )}
+
           <select className="border rounded px-2 py-1" value={filterStatus} onChange={e => setFilterStatus(e.target.value)}>
-            <option>All Status</option>
+            <option value="All">All Status</option>
             <option>On Track</option>
             <option>At Risk</option>
             <option>Off Track</option>
@@ -108,26 +154,26 @@ export default function Dashboard() {
               <Doughnut data={doughnutData} options={doughnutOptions} />
             </div>
             <div className="flex gap-4">
-              {kpiStatusData.map(item => {
+              {kpiStatusData && kpiStatusData.map(item => {
                 let color = '';
-                if (item._id === 'Off Track') color = 'bg-red-500';
-                else if (item._id === 'At Risk') color = 'bg-yellow-400';
-                else if (item._id === 'On Track') color = 'bg-green-500';
+                if (item.status === 'Off Track') color = 'bg-red-500';
+                else if (item.status === 'At Risk') color = 'bg-yellow-400';
+                else if (item.status === 'On Track') color = 'bg-green-500';
 
                 return (
-                  <div key={item._id} className="flex items-center gap-2">
+                  <div key={item.status} className="flex items-center gap-2">
                     <span className={`w-3 h-3 rounded-full ${color}`}></span>
-                    <span>{item._id}: {item.count}</span>
+                    <span>{item.status}: {item.count}</span>
                   </div>
                 );
               })}
             </div>
-            <div className="mt-2">
+            {/* <div className="mt-2">
               <span className="text-sm font-medium">Total Achieved: {totalAchieved}%</span>
               <div className="w-full bg-gray-200 rounded-full h-4 mt-1">
                 <div className="bg-blue-500 h-4 rounded-full" style={{ width: `${totalAchieved}%` }}></div>
               </div>
-            </div>
+            </div> */}
           </div>
 
           <div className="bg-white p-4 rounded shadow space-y-4">
@@ -135,9 +181,9 @@ export default function Dashboard() {
             <div className="w-full h-64">
               <Line data={lineData} options={lineOptions} />
             </div>
-            <div className="text-gray-700">
+            {/* <div className="text-gray-700">
               Latest Achievement: {achievementData[achievementData.length - 1].percent}%
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
