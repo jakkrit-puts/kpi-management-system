@@ -33,22 +33,27 @@ export const createKPI = TryCatch(async (req, res) => {
         end_date: end_date
     })
 
-    const user = await User.findById(assigned_user);
-
-    const html = getNotiHtml({ email: user.email, title: newKpi.title })
-
-    if (user) {
-        await sendMail({
-            to: user.email,
-            subject: `-- KPI Assigned Notification --`,
-            html: html
-        });
-    }
-
     res.status(201).json({
         message: "kpi created.",
         kpi: newKpi
     })
+
+    setImmediate(async () => {
+        try {
+            const user = await User.findById(assigned_user);
+            if (!user) return;
+
+            const html = getNotiHtml({ email: user.email, title: newKpi.title });
+
+            await sendMail({
+                to: user.email,
+                subject: `-- KPI Assigned Notification --`,
+                html
+            });
+        } catch (err) {
+            console.error("Error sending email:", err);
+        }
+    });
 })
 
 export const listKPI = TryCatch(async (req, res) => {
