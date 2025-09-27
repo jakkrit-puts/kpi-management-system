@@ -26,7 +26,7 @@ jobs:
       - name: Upload backend .env
         run: |
           ssh ${{ secrets.DO_USER }}@${{ secrets.DO_HOST }} << 'EOF'
-            cat > /root/project/backend/.env << EOL
+            cat > /root/project/kpi-management-system/backend/.env << EOL
             ${{ secrets.ENV_BACKEND }}
             EOL
           EOF
@@ -34,7 +34,7 @@ jobs:
       - name: Upload frontend .env
         run: |
           ssh ${{ secrets.DO_USER }}@${{ secrets.DO_HOST }} << 'EOF'
-            cat > /root/project/frontend/.env.production << EOL
+            cat > /root/project/kpi-management-system/frontend/.env.production << EOL
             ${{ secrets.ENV_FRONTEND }}
             EOL
           EOF
@@ -42,7 +42,7 @@ jobs:
       - name: Deploy with Docker Compose
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.DO_USER }}@${{ secrets.DO_HOST }} << 'EOF'
-            cd /root/project
+            cd /root/project/kpi-management-system
             git pull origin main
             docker-compose down
             docker-compose build --no-cache
