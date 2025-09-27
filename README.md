@@ -1,5 +1,8 @@
 # kpi-management-system
 
+## Tech Stack
+
+
 ## Setup instructions
 ```
 docker-compose up -d   // for run all services
