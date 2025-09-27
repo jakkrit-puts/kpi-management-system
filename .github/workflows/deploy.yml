@@ -17,27 +17,10 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.DO_SSH_KEY }}
 
-
       - name: Add server to known_hosts
         run: |
           mkdir -p ~/.ssh
           ssh-keyscan -H ${{ secrets.DO_HOST }} >> ~/.ssh/known_hosts
-
-      - name: Upload backend .env
-        run: |
-          ssh ${{ secrets.DO_USER }}@${{ secrets.DO_HOST }} << 'EOF'
-            cat > /root/project/kpi-management-system/backend/.env << EOL
-            ${{ secrets.ENV_BACKEND }}
-            EOL
-          EOF
-
-      - name: Upload frontend .env
-        run: |
-          ssh ${{ secrets.DO_USER }}@${{ secrets.DO_HOST }} << 'EOF'
-            cat > /root/project/kpi-management-system/frontend/.env << EOL
-            ${{ secrets.ENV_FRONTEND }}
-            EOL
-          EOF
 
       - name: Deploy with Docker Compose
         run: |
