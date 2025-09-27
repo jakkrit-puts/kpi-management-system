@@ -30,6 +30,12 @@ app.use(express.json())
 app.use(cookieParser())
 app.use(cors())
 
+app.get("/health", (req, res) => {
+    res.status(200).json({
+        "message": "service available"
+    })
+})
+
 // group v1
 app.use("/api/v1/auth", authRoutes)
 app.use("/api/v1/users", userRoutes)
