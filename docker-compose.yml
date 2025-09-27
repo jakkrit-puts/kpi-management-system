@@ -22,7 +22,8 @@ services:
       - mongodb
 
   frontend-app:
-    build: ./frontend
+    build:
+      context: ./frontend
     container_name: frontend-app
     restart: always
     ports:
