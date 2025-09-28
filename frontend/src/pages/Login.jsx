@@ -110,45 +110,6 @@ export default function Login() {
                                     <p className='text-red-500'>{errors.password?.message}</p>
                                 </div>
                             </div>
-
-                            <div className="flex items-center justify-between">
-                                <div className="flex gap-3">
-                                    <div className="flex h-6 shrink-0 items-center">
-                                        <div className="group grid size-4 grid-cols-1">
-                                            <input
-                                                id="remember-me"
-                                                name="remember-me"
-                                                type="checkbox"
-                                                className="col-start-1 row-start-1 appearance-none rounded-sm border border-gray-300 bg-white checked:border-blue-600 checked:bg-blue-600 indeterminate:border-blue-600 indeterminate:bg-blue-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto"
-                                            />
-                                            <svg
-                                                fill="none"
-                                                viewBox="0 0 14 14"
-                                                className="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-disabled:stroke-gray-950/25"
-                                            >
-                                                <path
-                                                    d="M3 8L6 11L11 3.5"
-                                                    strokeWidth={2}
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    className="opacity-0 group-has-checked:opacity-100"
-                                                />
-                                                <path
-                                                    d="M3 7H11"
-                                                    strokeWidth={2}
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    className="opacity-0 group-has-indeterminate:opacity-100"
-                                                />
-                                            </svg>
-                                        </div>
-                                    </div>
-                                    <label htmlFor="remember-me" className="block text-sm/6 text-gray-900">
-                                        Remember me
-                                    </label>
-                                </div>
-                            </div>
-
                             <div>
                                 <button
                                     type="submit"
@@ -158,6 +119,14 @@ export default function Login() {
                                 </button>
                             </div>
                         </form>
+                    </div>
+                </div>
+
+                <div className="sm:mx-auto sm:w-full sm:max-w-[480px] p-4">
+                    <div className="bg-blue-400 text-white px-4 py-4 shadow-sm sm:rounded-lg sm:px-12">
+                        <h1 className='text-center'>-- User Test --</h1>
+                        <p><b>Admin</b> Username: admin01, Password: Aa112233</p>
+                        <p><b>User</b>  Username: user01, Password: Aa111222</p>
                     </div>
                 </div>
             </div>
