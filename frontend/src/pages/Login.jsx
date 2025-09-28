@@ -125,8 +125,8 @@ export default function Login() {
                 <div className="sm:mx-auto sm:w-full sm:max-w-[480px] p-4">
                     <div className="bg-blue-400 text-white px-4 py-4 shadow-sm sm:rounded-lg sm:px-12">
                         <h1 className='text-center'>-- User Test --</h1>
-                        <p><b>Admin</b> Username: admin01, Password: Aa112233</p>
-                        <p><b>User</b>  Username: user01, Password: Aa111222</p>
+                        <p><b>Admin</b> Username: admin01 Password: Aa112233</p>
+                        <p><b>User</b>  Username: user01  Password: Aa111222</p>
                     </div>
                 </div>
             </div>
