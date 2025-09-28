@@ -3,18 +3,28 @@
 ## Tech Stack
 React.js + Express.js + MongoDB + DigitalOcean
 
+## Features List
+```
+AUTH (RBAC and JWT)
+Users CRUD
+KPI CRUD
+Dashboard Chart Report
+Send EMail
+CI/CD (Github Action)
+Document APIs  
+```
+
 ## Setup instructions
 ```
 docker-compose up -d   // for run all services
-
 docker-compose ps     // list container
 ```
 
 ```
+# Url
 frontend: http://localhost:3001
 backend : http://localhost:3000/health
 ```
-
 
 ## API documentation
 ```
