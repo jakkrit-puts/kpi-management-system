@@ -8,7 +8,7 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - mongo_data:/data/db
+      - /root/project/kpi-management-system/mongo_data:/data/db
 
   backend-app:
     build: ./backend

@@ -28,6 +28,6 @@ jobs:
             cd /root/project/kpi-management-system
             git pull origin main
             docker compose down
-            docker compose build --no-cache
+            docker compose build
             docker compose up -d
           EOF
