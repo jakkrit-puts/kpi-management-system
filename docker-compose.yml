@@ -5,13 +5,11 @@ services:
     image: mongo:5
     container_name: mongodb
     restart: always
-    ports:
-      - "27017:27017"
-    # volumes:
-    #   - mongo_data:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
     volumes:
       - /root/project/kpi-management-system/mongo_data:/data/db
-      - /root/project/kpi-management-system/mongo_config:/data/configdb
 
   backend-app:
     build: ./backend
@@ -33,8 +31,3 @@ services:
       - "3001:80"
     depends_on:
       - backend-app
-
-# volumes:
-#   mongo_data:
-
-
