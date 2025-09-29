@@ -11,6 +11,7 @@ services:
     #   - mongo_data:/data/db
     volumes:
       - /root/project/kpi-management-system/mongo_data:/data/db
+      - /root/project/kpi-management-system/mongo_data/mongo_config:/data/configdb
 
   backend-app:
     build: ./backend
